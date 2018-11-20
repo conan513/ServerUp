@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ServerUp
 {
@@ -27,8 +28,8 @@ namespace ServerUp
 
 
 
-            Config cfg = Config.SetConfig("ServerUp.config.json");
-            Console.WriteLine(cfg.ServerParams);
+            //Config cfg = Config.SetConfig("ServerUp.config.json");
+            //Console.WriteLine(cfg.ServerParams);
             
             
 
@@ -42,9 +43,10 @@ namespace ServerUp
             {
                 Thread.Sleep(1000);                          
                 Console.WriteLine(DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second + " " + PortState(port));
+                Console.WriteLine(Process.GetProcessById(id));
                 Log.write(PortState(port).ToString());
 
-                if (!PortState(port))
+                if (!PortState(port) || !Process.GetProcessById(id).Responding)
                 {
                     Console.WriteLine("ERROR");
                     try
@@ -66,6 +68,11 @@ namespace ServerUp
             }
 
         }
+
+        
+
+
+       
         public static bool PortState(int port)
         {
             bool alreadyinuse = (from p in System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().GetActiveUdpListeners() where p.Port == port select p).Count() == 1;
