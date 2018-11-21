@@ -16,44 +16,54 @@ namespace ServerUp
 {
     class Program
     {
-        static int id { get; set; }
+
+        //IConfig Conf { get { return this.Conf; } set { this.Conf = Config.GetConfig("ServerUp.config.json"); } }
+        static IConfig Conf { get; set; }
+        static Logger Log { get; set; }
+        static int ProcessID { get; set; }
         static void Main(string[] args)
         {
-
-            //Dayz2.ErrorDialog = true;
-            //Dayz2.RedirectStandardError = true;
-            // Dayz2.RedirectStandardOutput = true;
+            Conf = Config.GetConfig("ServerUp.config.json");
+            Log = new Logger(Conf.FileLogName, Conf.EnableLogger);
 
 
+            bool _start = false;
+            //{ For debug
+            //    Console.WriteLine(Conf.ServerParams);
+            //    Console.ReadKey();
+            //    Console.WriteLine(AppDomain.CurrentDomain.BaseDirectory);
+            //    //ILogger Log = new Logger("server_status.log", true);
+            //}
 
 
-            Config cfg = Config.SetConfig("ServerUp.config.json");
-            Console.WriteLine(cfg.ServerParams);
-            
-            
-
-            Console.WriteLine(AppDomain.CurrentDomain.BaseDirectory);
-
-            ILogger Log = new Logger("server_status.log", true);
-            int port = 2302;
             Start();
-            Thread.Sleep(30000);
+            Console.Write("Wait...");
+            while (!_start)
+            {
+                if (PortState(Conf.ServerPort))
+                    _start = true;
+                Console.Write(".");
+                Thread.Sleep(1000);
+                
+            }
+
+
             while (true)
             {
                 Thread.Sleep(1000);                          
-                Console.WriteLine(DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second + " " + PortState(port));
-                Log.write(PortState(port).ToString());
+                Console.WriteLine(DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second + " " + PortState(Conf.ServerPort));
+                Log.write(PortState(Conf.ServerPort).ToString());
 
-                if (!PortState(port))
+                if (!PortState(Conf.ServerPort) || !Process.GetProcessById(ProcessID).Responding)
                 {
                     Console.WriteLine("ERROR");
                     try
                     {
-                        Process.GetProcessById(id).Kill();
+                        Process.GetProcessById(ProcessID).Kill();
                         Start();
                         Console.WriteLine("Wait start server...");
                         Log.write("Wait start server...");
-                        Thread.Sleep(30000);
+                        Thread.Sleep(Conf.ServerAwait);
                         Console.WriteLine("Server started!");
                         Log.write("Server started!");
                     }
@@ -68,12 +78,13 @@ namespace ServerUp
         }
         public static bool PortState(int port)
         {
-            bool alreadyinuse = (from p in System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().GetActiveUdpListeners() where p.Port == port select p).Count() == 1;
+            bool alreadyinuse = (from p in System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().GetActiveUdpListeners() where p.Port == Conf.ServerPort select p).Count() == 1;
             return alreadyinuse;
         }
         public static void Start()
         {
-            new Thread(new ThreadStart(Test)).Start();
+            new Thread(new ThreadStart(new ProcessManager("D:\\SteamLibrary\\steamapps\\common\\DayZServer\\DayZServer_x64.exe", Conf.ServerParams).Start)).Start();
+            //new Thread(new ThreadStart(Test)).Start();
         }
         public static void Test()
         {
@@ -85,7 +96,7 @@ namespace ServerUp
             {
                 using (Process exeProcess = Process.Start(Dayz2))
                 {
-                    id = exeProcess.Id;
+                    ProcessID = exeProcess.Id;
                     Console.WriteLine(exeProcess.Id);
                     Console.WriteLine();
                     exeProcess.WaitForExit();
@@ -101,126 +112,14 @@ namespace ServerUp
     }
 
 
-    public interface ILogger
-    {
-        string FileName { get; set; }
-        bool Enable { get; set; }
-
-        void write(string str_log);
-
-    }
-
-    public class Logger : ILogger
-    {
-        Stack<string> Massiv = new Stack<string>();
-        public string FileName { get; set; }
-        public bool Enable { get; set; }
-
-        public Logger(string fileName, bool enable)
-        {
-            this.FileName = fileName;
-            this.Enable = enable;
-        }
-
-        public void write(string str_log)
-        {
-            this.Massiv.Push(Time() + " = " + str_log);
-            if (Enable)
-            {
-                File.AppendAllLines(this.FileName, this.Massiv);
-                this.Massiv.Clear();
-            }
-        }
-
-        private static string Time()
-        {
-            return DateTime.Now.ToString();
-        }
-
-
-
-    }
-
-
-
-    public interface IConfig
-    {
-        string FileLogName { get; set; }
-        string DirectoryLog { get; set; }
-        string ServerDirectory { get; set; }
-        int ServerPort { get; set; }
-        int ServerAwait { get; set; }
-        string[] ServerParams { get; set; }
-        bool EnableLogger { get; set; }
-    }
+   
 
     
-    public class Config : IConfig
-    {
-        public Config() { }
 
-        [JsonProperty("FileLogName")]
-        public string FileLogName { get; set; }
 
-        [JsonProperty("DirectoryLog")]
-        public string DirectoryLog { get; set; }
 
-        [JsonProperty("ServerDirectory")]
-        public string ServerDirectory { get; set; }
+  
 
-        [JsonProperty("ServerPort")]
-        public int ServerPort { get; set; }
-
-        [JsonProperty("ServerAwait")]
-        public int ServerAwait { get; set; }
-
-        [JsonProperty("ServerParams")]
-        public string[] ServerParams { get; set; }
-
-        [JsonProperty("EnableLogger")]
-        public bool EnableLogger { get; set; }        
-
-        public bool GetConfig()
-        {
-            return GetConfig("ServerUp.config");
-        }
-        public bool GetConfig(string config_file_name)
-        {
-            try
-            {
-                JsonSerializer serializer = new JsonSerializer();
-
-                using (StreamWriter sw = new StreamWriter(config_file_name))
-                using (JsonWriter writer = new JsonTextWriter(sw))
-                {
-                    serializer.Serialize(writer, this);
-                }
-                return true;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                return false;
-            }
-        }
-        public static Config SetConfig(string config_file_name)
-        {
-            JsonSerializer serializer = new JsonSerializer();
-
-            using (StreamReader sr = new StreamReader(config_file_name))
-            using (JsonReader reader = new JsonTextReader(sr))
-            {
-                JObject json = (JObject)serializer.Deserialize(reader, Type.GetType("JObject"));
-
-                
-
-                Console.WriteLine(serializer.Deserialize<Config>(reader));
-                Console.ReadKey();
-                return null;
-
-                //return (Config)serializer.Deserialize(reader, Type.GetType("Config"));
-            }
-        }
-
-    }
+    
+    
 }
