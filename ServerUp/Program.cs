@@ -84,28 +84,6 @@ namespace ServerUp
         public static void Start()
         {
             new Thread(new ThreadStart(new ProcessManager("D:\\SteamLibrary\\steamapps\\common\\DayZServer\\DayZServer_x64.exe", Conf.ServerParams).Start)).Start();
-            //new Thread(new ThreadStart(Test)).Start();
-        }
-        public static void Test()
-        {
-            ProcessStartInfo Dayz2 = new ProcessStartInfo();
-            Dayz2.Arguments = "-profiles=D:\\SteamLibrary\\steamapps\\common\\DayZServer\\battleye -adminlog -dologs -config=serverDZ.cfg -port=2302";
-            Dayz2.FileName = "D:\\SteamLibrary\\steamapps\\common\\DayZServer\\DayZServer_x64.exe";
-            Dayz2.ErrorDialog = false;
-            try
-            {
-                using (Process exeProcess = Process.Start(Dayz2))
-                {
-                    ProcessID = exeProcess.Id;
-                    Console.WriteLine(exeProcess.Id);
-                    Console.WriteLine();
-                    exeProcess.WaitForExit();
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
         }
 
 

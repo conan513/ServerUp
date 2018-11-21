@@ -27,11 +27,7 @@ namespace ServerUp
         {
             try
             {
-                using (iProcess = Process.Start(this.ProcessInfo))
-                {
-                    iProcess.WaitForExit();
-                }
-                    
+                iProcess = Process.Start(this.ProcessInfo);                    
                 //return true;
             }
             catch
