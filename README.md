@@ -1,4 +1,4 @@
-# App for auto restart after crash server Dayz v0.2
+# App for auto restart server DayZ after crash v0.2
 
 This app check state you server. If server crash, that the application detect it and will restart your server app. Also the application keeping log it server state.
 
