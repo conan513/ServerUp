@@ -3,7 +3,7 @@
 This app check state you server. If server crash, that the application detect it and will restart your server app. Also the application keeping log it server state.
 
 
-# Prerequisites
+## Prerequisites
 
 For job this application is necessary install in your system [.NET Framework 4.6.1](https://www.microsoft.com/en-us/download/details.aspx?id=49981)
 
