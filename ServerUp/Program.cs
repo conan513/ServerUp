@@ -1,14 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading;
-<<<<<<< HEAD
-using System.Threading.Tasks;
 using System.Diagnostics;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using static System.Net.Mime.MediaTypeNames;
-=======
->>>>>>> dev
 
 namespace ServerUp
 {
@@ -35,13 +28,6 @@ namespace ServerUp
             //}
 
 
-<<<<<<< HEAD
-            //Config cfg = Config.SetConfig("ServerUp.config.json");
-            //Console.WriteLine(cfg.ServerParams);
-            
-            
-=======
->>>>>>> dev
 
             oProcessManager = new ProcessManager(Conf.ServerDirectory + "\\" + Conf.ServerFileName, Conf.ServerParams);
 
@@ -60,18 +46,11 @@ namespace ServerUp
             while (true)
             {
                 Thread.Sleep(1000);                          
-<<<<<<< HEAD
-                Console.WriteLine(DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second + " " + PortState(port));
-                Console.WriteLine(Process.GetProcessById(id));
-                Log.write(PortState(port).ToString());
 
-                if (!PortState(port) || !Process.GetProcessById(id).Responding)
-=======
                 Console.WriteLine(DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second + " " + PortState(Conf.ServerPort));
                 Log.write(PortState(Conf.ServerPort).ToString());
 
                 if (!PortState(Conf.ServerPort) || !oProcessManager.iProcess.Responding)
->>>>>>> dev
                 {
                     Console.WriteLine(DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second + " ERROR");
                     Log.write("Server crash");

@@ -15,3 +15,4 @@ C:\Users\movchan_m\Source\Repos\ServerUp\ServerUp\obj\Debug\ServerUp.csproj.Core
 C:\Users\movchan_m\Source\Repos\ServerUp\ServerUp\obj\Debug\ServerUp.csproj.CopyComplete
 C:\Users\movchan_m\Source\Repos\ServerUp\ServerUp\obj\Debug\ServerUp.exe
 C:\Users\movchan_m\Source\Repos\ServerUp\ServerUp\obj\Debug\ServerUp.pdb
+C:\Users\movchan_m\Source\Repos\ServerUp\ServerUp\obj\Debug\ServerUp.csprojAssemblyReference.cache
