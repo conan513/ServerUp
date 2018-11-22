@@ -1,11 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ServerUp
 {
@@ -13,11 +9,12 @@ namespace ServerUp
     {
         public Config() { }        
 
-        public Config(string file_name, string directory_log, string server_directory, int server_port, int server_await, string server_params, bool enable_logger)
+        public Config(string file_name, string directory_log, string server_directory, string server_file_name, int server_port, int server_await, string server_params, bool enable_logger)
         {
             this.FileLogName = file_name;
             this.DirectoryLog = directory_log;
             this.ServerDirectory = server_directory;
+            this.ServerFileName = server_file_name;
             this.ServerPort = server_port;
             this.ServerAwait = server_await * 1000;         /////////////////////// This is a feature but not a bug =)))
             this.ServerParams = server_params;
@@ -32,6 +29,9 @@ namespace ServerUp
 
         [JsonProperty("ServerDirectory")]
         public string ServerDirectory { get; set; }
+
+        [JsonProperty("ServerFileName")]
+        public string ServerFileName { get; set; }
 
         [JsonProperty("ServerPort")]
         public int ServerPort { get; set; }
@@ -81,6 +81,7 @@ namespace ServerUp
                     (string)json.GetValue("FileLogName"),
                     (string)json.GetValue("DirectoryLog"),
                     (string)json.GetValue("ServerDirectory"),
+                    (string)json.GetValue("ServerFileName"),
                     (int)json.GetValue("ServerPort"),
                     (int)json.GetValue("ServerAwait"),
                     (string)json.GetValue("ServerParams"),

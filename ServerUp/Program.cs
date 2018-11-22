@@ -1,16 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Net;
-using System.Net.Sockets;
-using System.IO;
-using System.Security.Cryptography;
 using System.Threading;
-using System.Threading.Tasks;
-using System.Diagnostics;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace ServerUp
 {
@@ -21,6 +11,7 @@ namespace ServerUp
         static IConfig Conf { get; set; }
         static Logger Log { get; set; }
         static int ProcessID { get; set; }
+        static ProcessManager oProcessManager { get; set; }
         static void Main(string[] args)
         {
             Conf = Config.GetConfig("ServerUp.config.json");
@@ -35,6 +26,9 @@ namespace ServerUp
             //    //ILogger Log = new Logger("server_status.log", true);
             //}
 
+
+
+            oProcessManager = new ProcessManager(Conf.ServerDirectory + "\\" + Conf.ServerFileName, Conf.ServerParams);
 
             Start();
             Console.Write("Wait...");
@@ -54,12 +48,13 @@ namespace ServerUp
                 Console.WriteLine(DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second + " " + PortState(Conf.ServerPort));
                 Log.write(PortState(Conf.ServerPort).ToString());
 
-                if (!PortState(Conf.ServerPort) || !Process.GetProcessById(ProcessID).Responding)
+                if (!PortState(Conf.ServerPort) || !oProcessManager.iProcess.Responding)
                 {
-                    Console.WriteLine("ERROR");
+                    Console.WriteLine(DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second + " ERROR");
+                    Log.write("Server crash");
                     try
                     {
-                        Process.GetProcessById(ProcessID).Kill();
+                        oProcessManager.Stop();
                         Start();
                         Console.WriteLine("Wait start server...");
                         Log.write("Wait start server...");
@@ -70,6 +65,7 @@ namespace ServerUp
                     catch (Exception e )
                     {
                         Console.WriteLine(e);
+                        Log.write(e.ToString());
                     }
                 }
                 
@@ -83,7 +79,7 @@ namespace ServerUp
         }
         public static void Start()
         {
-            new Thread(new ThreadStart(new ProcessManager("D:\\SteamLibrary\\steamapps\\common\\DayZServer\\DayZServer_x64.exe", Conf.ServerParams).Start)).Start();
+            new Thread(new ThreadStart(oProcessManager.Start)).Start();
         }
 
 

@@ -1,0 +1,9 @@
+C:\Users\movchan_m\Source\Repos\ServerUp\ServerUp\bin\Release\ServerUp.exe.config
+C:\Users\movchan_m\Source\Repos\ServerUp\ServerUp\bin\Release\ServerUp.exe
+C:\Users\movchan_m\Source\Repos\ServerUp\ServerUp\bin\Release\ServerUp.pdb
+C:\Users\movchan_m\Source\Repos\ServerUp\ServerUp\bin\Release\Newtonsoft.Json.dll
+C:\Users\movchan_m\Source\Repos\ServerUp\ServerUp\obj\Release\ServerUp.csprojAssemblyReference.cache
+C:\Users\movchan_m\Source\Repos\ServerUp\ServerUp\obj\Release\ServerUp.csproj.CoreCompileInputs.cache
+C:\Users\movchan_m\Source\Repos\ServerUp\ServerUp\obj\Release\ServerUp.csproj.CopyComplete
+C:\Users\movchan_m\Source\Repos\ServerUp\ServerUp\obj\Release\ServerUp.exe
+C:\Users\movchan_m\Source\Repos\ServerUp\ServerUp\obj\Release\ServerUp.pdb

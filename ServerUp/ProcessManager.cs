@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 namespace ServerUp
 {
@@ -13,7 +8,7 @@ namespace ServerUp
         string StartFileName { get; set; }
         string StartArguments { get; set; }
         ProcessStartInfo ProcessInfo { get; set; }
-        Process iProcess { get; set; }
+        public Process iProcess { get; set; }
 
 
         public ProcessManager() { }
@@ -40,6 +35,48 @@ namespace ServerUp
             process_info.FileName = this.StartFileName;
             process_info.Arguments = this.StartArguments;
             return process_info;
+        }
+
+        public bool Stop()
+        {
+            try
+            {
+                iProcess.Kill();
+                return true;
+            }
+            catch
+            {
+
+                return false;
+            }
+        }
+
+        public bool Restart()
+        {
+            try
+            {
+
+                return true;
+            }
+            catch
+            {
+
+                return false;
+            }
+        }
+
+        public bool CrachTest()
+        {
+            try
+            {
+
+                return true;
+            }
+            catch
+            {
+
+                return false;
+            }
         }
 
     }

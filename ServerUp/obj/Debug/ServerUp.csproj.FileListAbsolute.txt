@@ -1,12 +1,3 @@
-C:\Users\movchan_m\Source\Repos\ServerUp\ServerUp\bin\Debug\ServerUp.exe.config
-C:\Users\movchan_m\Source\Repos\ServerUp\ServerUp\bin\Debug\ServerUp.exe
-C:\Users\movchan_m\Source\Repos\ServerUp\ServerUp\bin\Debug\ServerUp.pdb
-C:\Users\movchan_m\Source\Repos\ServerUp\ServerUp\bin\Debug\Newtonsoft.Json.dll
-C:\Users\movchan_m\Source\Repos\ServerUp\ServerUp\obj\Debug\ServerUp.csprojAssemblyReference.cache
-C:\Users\movchan_m\Source\Repos\ServerUp\ServerUp\obj\Debug\ServerUp.csproj.CoreCompileInputs.cache
-C:\Users\movchan_m\Source\Repos\ServerUp\ServerUp\obj\Debug\ServerUp.csproj.CopyComplete
-C:\Users\movchan_m\Source\Repos\ServerUp\ServerUp\obj\Debug\ServerUp.exe
-C:\Users\movchan_m\Source\Repos\ServerUp\ServerUp\obj\Debug\ServerUp.pdb
 C:\Users\kenny\source\repos\ServerUp\serverup\ServerUp\bin\Debug\ServerUp.exe.config
 C:\Users\kenny\source\repos\ServerUp\serverup\ServerUp\bin\Debug\ServerUp.exe
 C:\Users\kenny\source\repos\ServerUp\serverup\ServerUp\bin\Debug\ServerUp.pdb
@@ -16,3 +7,11 @@ C:\Users\kenny\source\repos\ServerUp\serverup\ServerUp\obj\Debug\ServerUp.csproj
 C:\Users\kenny\source\repos\ServerUp\serverup\ServerUp\obj\Debug\ServerUp.csproj.CopyComplete
 C:\Users\kenny\source\repos\ServerUp\serverup\ServerUp\obj\Debug\ServerUp.exe
 C:\Users\kenny\source\repos\ServerUp\serverup\ServerUp\obj\Debug\ServerUp.pdb
+C:\Users\movchan_m\Source\Repos\ServerUp\ServerUp\bin\Debug\ServerUp.exe.config
+C:\Users\movchan_m\Source\Repos\ServerUp\ServerUp\bin\Debug\ServerUp.exe
+C:\Users\movchan_m\Source\Repos\ServerUp\ServerUp\bin\Debug\ServerUp.pdb
+C:\Users\movchan_m\Source\Repos\ServerUp\ServerUp\bin\Debug\Newtonsoft.Json.dll
+C:\Users\movchan_m\Source\Repos\ServerUp\ServerUp\obj\Debug\ServerUp.csproj.CoreCompileInputs.cache
+C:\Users\movchan_m\Source\Repos\ServerUp\ServerUp\obj\Debug\ServerUp.csproj.CopyComplete
+C:\Users\movchan_m\Source\Repos\ServerUp\ServerUp\obj\Debug\ServerUp.exe
+C:\Users\movchan_m\Source\Repos\ServerUp\ServerUp\obj\Debug\ServerUp.pdb
